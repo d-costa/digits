@@ -1,5 +1,59 @@
 // base code from https://www.html5canvastutorials.com/labs/html5-canvas-paint-application/
 
+tf.loadLayersModel("tfjs/model.json").then(function (model) {
+    window.model = model;
+});
+
+
+function createDataArray(scores) {
+    function cmp(e1, e2) {
+        if (e1[1] > e2[1])
+            return -1;
+        if (e1[1] < e2[1])
+            return 1;
+        return 0;
+    }
+
+    function processScore(score) {
+        return (score * 100).toFixed(3) + "%";
+    }
+
+    let arr = [];
+    for (let i = 0; i < scores.length; i++) {
+        arr.push([i, scores[i]]);
+    }
+
+    arr = arr.sort(cmp);
+
+    cleaned_arr = []
+    for (let i = 0; i < arr.length; i++) {
+        cleaned_arr.push([arr[i][0], processScore(arr[i][1])]);
+    }
+
+    return cleaned_arr;
+}
+
+let predict = function (input) {
+    if (window.model) {
+        window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function (scores) {
+            clearTable();
+            scores = scores[0];
+
+            let data = createDataArray(scores);
+
+
+            let predicted = data[0][0];
+            $("#number").html(predicted);
+
+            $('#table').html(generateTable(data))
+        });
+    } else {
+        setTimeout(function () {
+            predict(input)
+        }, 50);
+    }
+}
+
 function handleResize() {
     if (window.innerHeight > window.innerWidth) {
         // vertical mode
@@ -59,7 +113,7 @@ canvas.addEventListener("mouseup", function () {
         for (let i = 0; i < data.length; i += 4) {
             input.push(data[i + 3] / 255); // get opacity only (black and white)
         }
-        console.log(input);
+
         predict(input);
     };
     img.src = canvas.toDataURL("image/png"); // load img from large canvas
@@ -75,7 +129,10 @@ function clearTable() {
 }
 
 function resetTable() {
-    $("#table").html(emptyTableContent());
+    $("#table").html(generateTable([
+        [0, ""], [1, ""], [2, ""], [3, ""], [4, ""],
+        [5, ""], [6, ""], [7, ""], [8, ""], [9, ""]
+    ]));
 }
 
 document.getElementById("clear_button").addEventListener("click", function () {
@@ -92,34 +149,6 @@ document.getElementById("clear_button").addEventListener("click", function () {
     resetTable();
 });
 
-function processScore(score) {
-    return (score * 100).toFixed(3) + "%";
-}
-
-let predict = function (input) {
-    if (window.model) {
-        window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function (scores) {
-            clearTable();
-
-            scores = scores[0];
-
-            let predicted = scores.indexOf(Math.max(...scores));
-            $("#number").html(predicted);
-
-            let tableContent = "<table><tr><th>Digit</th><th>Probability</th></tr>"
-            for (let i = 0; i < scores.length; i++) {
-                tableContent += "<tr><td>" + i + ":</td><td>" + processScore(scores[i]) + "</td></tr>";
-            }
-            tableContent += "</table>"
-            $('#table').html(tableContent)
-        });
-    } else {
-        // The model takes a bit to load, if we are too fast, wait
-        setTimeout(function () {
-            predict(input)
-        }, 50);
-    }
-}
 
 // mobile touch events
 canvas.addEventListener('touchstart', function (e) {
@@ -140,15 +169,11 @@ canvas.addEventListener('touchmove', function (e) {
     }));
 }, false);
 
-function emptyTableContent() {
-    let tableContent = "<table><tr><th>Digit</th><th>Probability</th></tr>"
-    for (let i = 0; i < 10; i++) {
-        tableContent += "<tr><td>" + i + ":</td><td></td></tr>";
+function generateTable(data) {
+    let tableContent = "<table style='border-spacing: 15px;'><tr><th class='digit_col'>Digit</th><th>Probability</th></tr>"
+    for (let i = 0; i < data.length; i++) {
+        tableContent += "<tr><td class='digit_col'>" + data[i][0] + "</td><td>" + data[i][1] + "</td></tr>";
     }
     tableContent += "</table>";
     return tableContent;
 }
-
-tf.loadLayersModel("tfjs/model.json").then(function (model) {
-    window.model = model;
-});

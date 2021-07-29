@@ -40,7 +40,7 @@ h1 {
     display: block;
     width: 28px;
     height: 28px;
-    margin: 5% auto 0;
+    margin: 2% auto 0;
 }
 
 #canvas {
@@ -67,30 +67,52 @@ h1 {
 }
 
 table {
-    margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 5% auto;
+    padding: 50%;
+    table-layout: fixed;
+
 }
 
-td {
-    font-size: 2em;
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    min-width: 5em;
+    font-size: 1.5em;
+}
+
+.digit_col {
+    width: 30%;
+    min-width: 4em;
 }
 
 #clear_button {
     padding: 0.35em 1.2em;
-    border: 0.1em solid #FFFFFF;
-    margin: 1em 0.3em 0.3em 1em;
-    border-radius: 0.12em;
+    border: 0.1em solid #555555;
+    margin: 0.5em 0.3em;
+    border-radius: 0.5em;
     text-align: center;
-    font-size: 1em;
+    font-size: 2em;
+}
+
+#clear_button:hover {
+    background-color: #AAAAAA;
+}
+
+#clear_button:active {
+    vertical-align: top;
+    margin: 0.6em 0.4em;
+    padding: 0.25em 1.1em;
 }
 
 #footer {
-    position:relative;
+    position: relative;
     /*bottom:0;*/
     width: 100%;
     max-width: 1000px;
-    height:60px;
+    height: 60px;
     text-align: center;
 }
 

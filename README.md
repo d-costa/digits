@@ -57,3 +57,7 @@ batch size of 64.
 
 Test loss: 0.025  
 Test accuracy: 99.17%
+
+# Acknowledgements
+
+Carlos Aguayo : https://github.com/carlos-aguayo/carlos-aguayo.github.io
