@@ -1,17 +1,14 @@
 from datetime import datetime
 
 import tensorflow as tf
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import Input, Dense, Flatten, Conv2D, Dropout, MaxPooling2D, BatchNormalization
-from tensorflow.keras import Model
-from tensorflow.python.keras.optimizer_v2.gradient_descent import SGD
-from tensorflow.python.keras.utils.np_utils import to_categorical
 from sklearn.model_selection import train_test_split
+from tensorflow.keras import Model
+from tensorflow.keras.layers import Input, Dense, Flatten, Conv2D, MaxPooling2D
+from tensorflow.keras.optimizers import Adam
+from tensorflow.python.keras.utils.np_utils import to_categorical
 
 batch_size = 16
-num_epochs = 50
-l_rate = 0.01
-momentum = 0.9
+num_epochs = 20
 
 mnist = tf.keras.datasets.mnist
 
@@ -24,14 +21,13 @@ x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.
 y_train = to_categorical(y_train)
 y_val = to_categorical(y_val)
 
-
 # Network
 inputs = Input(shape=(28, 28, 1))
 
 layer = Conv2D(32, (5, 5), activation="relu", kernel_initializer='glorot_uniform')(inputs)
 layer = MaxPooling2D(pool_size=(2, 2))(layer)
 
-layer = Conv2D(15, (3, 3), activation="relu", kernel_initializer='glorot_uniform')(layer)
+layer = Conv2D(16, (3, 3), activation="relu", kernel_initializer='glorot_uniform')(layer)
 layer = MaxPooling2D(pool_size=(2, 2))(layer)
 
 layer = Flatten()(layer)
@@ -48,7 +44,7 @@ model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["ac
 model.summary()
 
 # $> tensorboard --logdir logs
-logdir="logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+logdir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
 
 history = model.fit(x_train, y_train, validation_data=(x_train, y_train),

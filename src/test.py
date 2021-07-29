@@ -10,6 +10,5 @@ mnist = tf.keras.datasets.mnist
 x_test = x_test / 255.0
 y_test = to_categorical(y_test)
 
-
 loss, acc = model.evaluate(x_test, y_test, verbose=0)
 print("Trained model, loss: {:5.3f}, accuracy: {:5.2f}%".format(loss, 100 * acc))

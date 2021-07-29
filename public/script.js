@@ -7,6 +7,7 @@ function handleResize() {
     } else {
         $('.flex-child:first-child').css({'flex-basis': 'auto'});
     }
+
 }
 
 window.onresize = handleResize
