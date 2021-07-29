@@ -3,12 +3,12 @@ from datetime import datetime
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
 from tensorflow.keras import Model
-from tensorflow.keras.layers import Input, Dense, Flatten, Conv2D, MaxPooling2D
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Input, Dense, Flatten, Conv2D, BatchNormalization, Dropout, MaxPool2D
 from tensorflow.python.keras.utils.np_utils import to_categorical
 
-batch_size = 16
-num_epochs = 20
+batch_size = 64
+num_epochs = 25
+validation_size = 0.16
 
 mnist = tf.keras.datasets.mnist
 
@@ -24,30 +24,28 @@ y_val = to_categorical(y_val)
 # Network
 inputs = Input(shape=(28, 28, 1))
 
-layer = Conv2D(32, (5, 5), activation="relu", kernel_initializer='glorot_uniform')(inputs)
-layer = MaxPooling2D(pool_size=(2, 2))(layer)
+layer = Conv2D(32, (3, 3), activation="relu")(inputs)
+layer = MaxPool2D()(layer)
 
-layer = Conv2D(16, (3, 3), activation="relu", kernel_initializer='glorot_uniform')(layer)
-layer = MaxPooling2D(pool_size=(2, 2))(layer)
+layer = Conv2D(16, (3, 3), activation="relu")(layer)
+layer = MaxPool2D()(layer)
 
 layer = Flatten()(layer)
 
-layer = Dense(128, activation="relu", kernel_initializer='glorot_uniform')(layer)
+layer = Dense(128, activation="relu")(layer)
+
 layer = Dense(10, activation="softmax")(layer)
 
 model = Model(inputs=inputs, outputs=layer)
 
-# optimizer = SGD(learning_rate=l_rate, momentum=momentum)
-optimizer = Adam()
-
-model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=["accuracy"])
+model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 model.summary()
 
 # $> tensorboard --logdir logs
 logdir = "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
 
-history = model.fit(x_train, y_train, validation_data=(x_train, y_train),
+history = model.fit(x_train, y_train, validation_data=(x_val, y_val),
                     batch_size=batch_size, epochs=num_epochs, callbacks=[tensorboard_callback])
 
 model.save("model.h5")

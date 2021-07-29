@@ -11,6 +11,7 @@ google-pasta==0.2.0
 grpcio==1.34.1
 h5py==3.1.0
 idna==3.2
+joblib==1.0.1
 keras-nightly==2.5.0.dev2021032900
 Keras-Preprocessing==1.1.2
 Markdown==3.3.4
@@ -25,6 +26,7 @@ PyYAML==5.4.1
 requests==2.26.0
 requests-oauthlib==1.3.0
 rsa==4.7.2
+scikit-learn==0.24.2
 scipy==1.7.0
 six==1.15.0
 tensorboard==2.5.0
@@ -35,6 +37,7 @@ tensorflow-estimator==2.5.0
 tensorflow-hub==0.12.0
 tensorflowjs==3.8.0
 termcolor==1.1.0
+threadpoolctl==2.2.0
 typing-extensions==3.7.4.3
 urllib3==1.26.6
 Werkzeug==2.0.1

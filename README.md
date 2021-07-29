@@ -42,20 +42,18 @@ The [MNIST](http://yann.lecun.com/exdb/mnist/) is used for training a CNN networ
 | Layer                      | Output Shape        | Param # |
 | -------------------------- | ------------------- | ------- |
 | InputLayer                 | [(None, 28, 28, 1)] | 0       |
-| Conv2D (32, (5, 5), relu)  | (None, 24, 24, 32)  | 832     |
-| MaxPooling2D (2,2)         | (None, 12, 12, 32)  | 0       |
-| Conv2D (32, (3, 3), relu)  | (None, 10, 10, 16)  | 4624    |
+| Conv2D (32, (3, 3), relu)  | (None, 26, 26, 32)  | 320     |
+| MaxPooling2D (2,2)         | (None, 13, 13, 32)  | 0       |
+| Conv2D (16, (3, 3), relu)  | (None, 11, 11, 16)  | 4624    |
 | MaxPooling2                | (None, 5, 5, 16)    | 0       |
 | Flatten                    | (None, 400)         | 0       |
 | Dense  (relu)              | (None, 128)         | 51328   |
 | Dense  (softmax)           | (None, 10)          | 1290    |
 
-Total params: 58,074
-Trainable params: 58,074
-Non-trainable params: 0
+Total params: 57,562 Trainable params: 57,562 Non-trainable params: 0
 
-The training set is split in 75/25 for training and validation.
-Adam is used as the optimizer with 20 epochs and batch size of 16.
+~15.000 examples of the training set are used as the validation set. Adam is used as the optimizer with 15 epochs and
+batch size of 64.
 
-Test loss: 0.074  
-Test accuracy: 98.91%
+Test loss: 0.025  
+Test accuracy: 99.17%

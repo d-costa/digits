@@ -14,10 +14,6 @@ window.onresize = handleResize
 
 handleResize();
 
-tf.loadLayersModel("tfjs/model.json").then(function (model) {
-    window.model = model;
-});
-
 resetTable();
 
 let canvas = document.getElementById("canvas");
@@ -36,7 +32,7 @@ canvas.addEventListener("mousemove", function (e) {
     mouse.y = e.pageY - this.offsetTop;
 }, false);
 
-ctx.lineWidth = 20;
+ctx.lineWidth = 15;
 ctx.lineJoin = "round";
 ctx.lineCap = "round";
 ctx.strokeStyle = "#000000";
@@ -61,8 +57,9 @@ canvas.addEventListener("mouseup", function () {
         let data = smallCtx.getImageData(0, 0, 28, 28).data;
         let input = [];
         for (let i = 0; i < data.length; i += 4) {
-            input.push(-(data[i + 3] / 255) + 1); // get opacity only (black)
+            input.push(data[i + 3] / 255); // get opacity only (black and white)
         }
+        console.log(input);
         predict(input);
     };
     img.src = canvas.toDataURL("image/png"); // load img from large canvas
@@ -152,3 +149,6 @@ function emptyTableContent() {
     return tableContent;
 }
 
+tf.loadLayersModel("tfjs/model.json").then(function (model) {
+    window.model = model;
+});
