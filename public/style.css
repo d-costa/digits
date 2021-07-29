@@ -96,6 +96,8 @@ th, td {
     text-align: center;
     font-size: 2em;
     z-index: 9999;
+    background-color: pink;
+
 }
 
 #clear_button:hover {
