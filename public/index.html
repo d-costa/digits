@@ -187,6 +187,10 @@
         ctx.stroke();
     };
 
+    function clearTable() {
+        $("#table").html("");
+    }
+
     document.getElementById("clear_button").addEventListener("click", function () {
         let canvas = document.getElementById("canvas"),
             ctx = canvas.getContext("2d");
@@ -198,13 +202,15 @@
 
 
         $("#number").html("");
-        $("#table").html("");
+        clearTable();
     });
 
 
     let predict = function (input) {
         if (window.model) {
             window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function (scores) {
+                clearTable();
+
                 scores = scores[0];
                 console.log(scores)
 

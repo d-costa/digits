@@ -1,5 +1,5 @@
 import tensorflow as tf
-from keras.utils.np_utils import to_categorical
+from tensorflow.python.keras.utils.np_utils import to_categorical
 
 # Recreate the exact same model, including its weights and the optimizer
 model = tf.keras.models.load_model('model.h5')
