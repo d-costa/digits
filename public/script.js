@@ -135,7 +135,7 @@ function resetTable() {
     ]));
 }
 
-document.getElementById("clear_button").addEventListener("click", function () {
+function clearButton() {
     let canvas = document.getElementById("canvas"),
         ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -147,7 +147,10 @@ document.getElementById("clear_button").addEventListener("click", function () {
 
     $("#number").html("");
     resetTable();
-});
+}
+
+document.getElementById("clear_button").addEventListener("click", clearButton);
+document.getElementById("clear_button").addEventListener("touchstart", clearButton);
 
 
 // mobile touch events
