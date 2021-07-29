@@ -95,6 +95,7 @@ th, td {
     border-radius: 0.5em;
     text-align: center;
     font-size: 2em;
+    z-index: 9999;
 }
 
 #clear_button:hover {
