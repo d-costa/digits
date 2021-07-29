@@ -55,8 +55,8 @@ Total params: 57,562 Trainable params: 57,562 Non-trainable params: 0
 ~15.000 examples of the training set are used as the validation set. Adam is used as the optimizer with 15 epochs and
 batch size of 64.
 
-Test loss: 0.025  
-Test accuracy: 99.17%
+Test loss: 0.050  
+Test accuracy: 98.97%
 
 # Acknowledgements
 
