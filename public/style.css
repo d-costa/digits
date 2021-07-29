@@ -43,7 +43,9 @@ h1 {
     margin: 2% auto 0;
 }
 
-#canvas {
+#small_canvas {
+    width: 28px;
+    height: 28px;
 }
 
 #prediction_div {
@@ -95,9 +97,6 @@ th, td {
     border-radius: 0.5em;
     text-align: center;
     font-size: 2em;
-    z-index: 9999;
-    background-color: pink;
-
 }
 
 #clear_button:hover {
