@@ -1,24 +1,98 @@
+
 body {
-  font-family: sans-serif;
-  margin: auto;
-  max-width: 1280px;
+    font-family: "Roboto", serif;
+    max-width: 1000px;
+    margin:0 auto;
 }
 
-.navbar {
-  background-color: #313236;
-  border-radius: 2px;
-  max-width: 800px;
+h1 {
+    margin: 50px;
+    font-size: 3em;
+    text-align: center;
 }
 
-.navbar a {
-  color: #aaa;
-  display: inline-block;
-  font-size: 15px;
-  padding: 10px;
-  text-decoration: none;
+.flex-container {
+    margin-top: 5%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.navbar a:hover {
-  color: #ffffff;
+.flex-child {
+    flex: 1;
+    text-align: center;
 }
 
+.flex-child:first-child {
+    margin-right: 20px;
+}
+
+#canvas_div {
+    margin: 0 auto;
+    border: 5px solid black;
+    display: block;
+    width: 284px;
+    height: 284px;
+    touch-action: none;
+}
+
+#small_canvas_div {
+    border: 1px solid black;
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 5% auto 0;
+}
+
+#canvas {
+}
+
+#prediction_div {
+    font-size: 2em;
+    text-align: center;
+}
+
+#number{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 2em;
+}
+
+.loading{
+    width: 0.5em;
+}
+
+#evaluation {
+    font-size: 0.5em;
+}
+
+table {
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    font-size: 2em;
+}
+
+#clear_button {
+    padding: 0.35em 1.2em;
+    border: 0.1em solid #FFFFFF;
+    margin: 1em 0.3em 0.3em 1em;
+    border-radius: 0.12em;
+    text-align: center;
+    font-size: 1em;
+}
+
+#footer {
+    position:absolute;
+    bottom:0;
+    width: 100%;
+    max-width: 1000px;
+    height:60px;
+    text-align: center;
+}
+
+.link {
+    color: black;
+}

@@ -4,92 +4,7 @@
     <meta charset="utf-8">
     <meta name="generator" content="GitLab Pages">
     <title>Digits</title>
-    <link rel="stylesheet" href="style.css">
-
-    <style>
-        body {
-            font-family: "Roboto", serif;
-            /*width: 80%;*/
-        }
-
-        h1 {
-            margin: 50px;
-            font-size: 3em;
-            text-align: center;
-        }
-
-        .flex-container {
-            margin-top: 5%;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .flex-child {
-            flex: 1;
-            text-align: center;
-        }
-
-        .flex-child:first-child {
-            margin-right: 20px;
-        }
-
-        #canvas_div {
-            margin: 0 auto;
-            border: 5px solid black;
-            /*position: relative;*/
-            /*min-width: 300px;*/
-            display: block;
-            width: 284px;
-            height: 284px;
-            /*background-color: #666666;*/
-        }
-
-        #small_canvas_div {
-            border: 1px solid black;
-            display: block;
-            width: 28px;
-            height: 28px;
-            margin: 5% auto 0;
-        }
-
-        #canvas {
-            /*background-color: #aaaaaa;*/
-        }
-
-        #prediction_div {
-            font-size: 2em;
-            text-align: center;
-        }
-
-        #number {
-            text-align: center;
-            vertical-align: middle;
-            font-size: 2em;
-        }
-
-        #evaluation {
-            font-size: 0.5em;
-        }
-
-        table {
-            margin-top: 5%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        td {
-            font-size: 2em;
-        }
-
-        #clear_button {
-            padding: 0.35em 1.2em;
-            border: 0.1em solid #FFFFFF;
-            margin: 1em 0.3em 0.3em 1em;
-            border-radius: 0.12em;
-            text-align: center;
-            font-size: 1em;
-        }
-
-    </style>
+    <link type="text/css" rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -100,6 +15,7 @@
 <div class="flex-container">
 
     <div class="flex-child">
+
         <div id="canvas_div">
             <canvas id="canvas"></canvas>
         </div>
@@ -122,117 +38,15 @@
             </table>
         </div>
     </div>
-
 </div>
 
-
+<div id="footer"><hr/>
+    Digit recognition <br>
+    <img src="assets/gitlab.png" alt="gitlab_logo" style="width: 1em"> <a class="link" href="https://gitlab.com/d-costa/digits"> Gitlab</a>
+</div>
 </body>
-<script>
 
-    // base code from https://www.html5canvastutorials.com/labs/html5-canvas-paint-application/
-
-    tf.loadLayersModel("tfjs/model.json").then(function (model) {
-        window.model = model;
-    });
-
-    let canvas = document.getElementById("canvas");
-    let smallCanvas = document.getElementById("small_canvas")
-    let ctx = canvas.getContext("2d");
-
-    let painting = document.getElementById("canvas_div");
-    let paint_style = getComputedStyle(painting);
-    canvas.width = parseInt(paint_style.getPropertyValue("width"));
-    canvas.height = parseInt(paint_style.getPropertyValue("height"));
-
-    let mouse = {x: 0, y: 0};
-
-    canvas.addEventListener("mousemove", function (e) {
-        mouse.x = e.pageX - this.offsetLeft;
-        mouse.y = e.pageY - this.offsetTop;
-    }, false);
-
-    ctx.lineWidth = 20;
-    ctx.lineJoin = "round";
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "#000000";
-
-    canvas.addEventListener("mousedown", function (e) {
-        ctx.beginPath();
-        ctx.moveTo(mouse.x, mouse.y);
-
-        canvas.addEventListener("mousemove", onPaint, false);
-    }, false);
-
-    canvas.addEventListener("mouseup", function () {
-        canvas.removeEventListener("mousemove", onPaint, false);
-        var smallCtx = smallCanvas.getContext("2d");
-
-        // Process input
-        let img = new Image();
-        img.onload = function () {
-            // downsample and get black levels
-            smallCtx.drawImage(img, 0, 0, 28, 28);
-            let data = smallCtx.getImageData(0, 0, 28, 28).data;
-            let input = [];
-            for (let i = 0; i < data.length; i += 4) {
-                input.push(-(data[i + 3] / 255) + 1); // get opacity only (black)
-            }
-            predict(input);
-        };
-        img.src = canvas.toDataURL("image/png"); // load img from large canvas
-    }, false);
-
-    let onPaint = function () {
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.stroke();
-    };
-
-    function clearTable() {
-        $("#table").html("");
-    }
-
-    document.getElementById("clear_button").addEventListener("click", function () {
-        let canvas = document.getElementById("canvas"),
-            ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        let smallCanvas = document.getElementById("small_canvas"),
-            smallCtx = smallCanvas.getContext("2d");
-        smallCtx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-        $("#number").html("");
-        clearTable();
-    });
-
-
-    let predict = function (input) {
-        if (window.model) {
-            window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function (scores) {
-                clearTable();
-
-                scores = scores[0];
-                console.log(scores)
-
-                predicted = scores.indexOf(Math.max(...scores));
-                $("#number").html(predicted);
-
-                let tableContent = "<table><tr><th>Digit</th><th>Probability</th></tr>"
-                for (let i = 0; i < scores.length; i++) {
-                    tableContent += "<tr><td>" + i + ":</td><td>" + scores[i].toFixed(5) + "</td></tr>";
-                }
-                tableContent += "</table>"
-                $('#table').append(tableContent)
-            });
-        } else {
-            // The model takes a bit to load, if we are too fast, wait
-            setTimeout(function () {
-                predict(input)
-            }, 50);
-        }
-    }
-
-</script>
+<script type="text/javascript" src="script.js"></script>
 
 </html>
 
