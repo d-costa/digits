@@ -92,8 +92,8 @@ ctx.lineCap = "round";
 ctx.strokeStyle = "#000000";
 
 canvas.addEventListener("mousedown", function (e) {
-    ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
+    ctx.beginPath();
 
     canvas.addEventListener("mousemove", onPaint, false);
 }, false);
@@ -101,6 +101,7 @@ canvas.addEventListener("mousedown", function (e) {
 canvas.addEventListener("mouseup", function () {
     $('#number').html('<img class="loading"  src="assets/loading.gif" alt="loading_img"/>');
     canvas.removeEventListener("mousemove", onPaint, false);
+    canvas.removeEventListener("touchmove", onPaint, false);
     var smallCtx = smallCanvas.getContext("2d");
 
     // Process input
@@ -155,7 +156,7 @@ document.getElementById("clear_button").addEventListener("touchstart", clearButt
 
 // mobile touch events
 canvas.addEventListener('touchstart', function (e) {
-    var touch = e.touches[0];
+    let touch = e.touches[0];
     canvas.dispatchEvent(new MouseEvent('mousedown', {
         clientX: touch.clientX,
         clientY: touch.clientY
@@ -165,7 +166,7 @@ canvas.addEventListener('touchend', function (e) {
     canvas.dispatchEvent(new MouseEvent('mouseup', {}));
 }, false);
 canvas.addEventListener('touchmove', function (e) {
-    var touch = e.touches[0];
+    let touch = e.touches[0];
     canvas.dispatchEvent(new MouseEvent('mousemove', {
         clientX: touch.clientX,
         clientY: touch.clientY
