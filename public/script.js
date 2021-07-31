@@ -107,9 +107,12 @@ canvas.addEventListener("mouseup", function () {
     // Process input
     let img = new Image();
     img.onload = function () {
-        // downsample and get black levels
-        smallCtx.drawImage(img, 0, 0, 28, 28);
+
+        // downsample
+        smallCtx.drawImage(img, 0, 0, canvas.width, canvas.height,
+            0, 0, smallCanvas.width, smallCanvas.height);
         let data = smallCtx.getImageData(0, 0, 28, 28).data;
+
         let input = [];
         for (let i = 0; i < data.length; i += 4) {
             input.push(data[i + 3] / 255); // get opacity only (black and white)
@@ -117,7 +120,9 @@ canvas.addEventListener("mouseup", function () {
 
         predict(input);
     };
-    img.src = canvas.toDataURL("image/png"); // load img from large canvas
+
+    // set the big canvas' data as src of the small canvas
+    img.src = canvas.toDataURL("image/png");
 }, false);
 
 let onPaint = function () {
