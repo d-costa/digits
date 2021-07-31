@@ -26,6 +26,18 @@ h1 {
     margin-right: 20px;
 }
 
+.small-flexer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.small-canvas-label {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
 #canvas_div {
     margin: 0 auto;
     border: 5px solid black;
@@ -40,7 +52,7 @@ h1 {
     display: block;
     width: 28px;
     height: 28px;
-    margin: 2% auto 0;
+    margin: 2%;
 }
 
 #small_canvas {
@@ -68,24 +80,24 @@ h1 {
     font-size: 0.5em;
 }
 
-table {
+.class-table {
     margin: 5% auto;
     padding: 50%;
     table-layout: fixed;
 
 }
 
-table, th, td {
+.class-table, .class-th, .class-td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-th, td {
+.class-th, .class-td {
     min-width: 5em;
     font-size: 1.5em;
 }
 
-.digit_col {
+#digit_col {
     width: 30%;
     min-width: 4em;
 }

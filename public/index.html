@@ -20,9 +20,31 @@
             <canvas id="canvas"></canvas>
         </div>
 
-        <div id="small_canvas_div">
-            <canvas id="small_canvas"></canvas>
+        <div class="small-flexer">
+
+            <div class="small-canvas-label">
+                CNN input:
+            </div>
+
+            <div id="small_canvas_div">
+                <canvas id="small_canvas"></canvas>
+            </div>
+
         </div>
+
+        <table>
+            <tr>
+                <td>
+                    <input checked="checked" class="checkbox" id="centerDrawingSwitch" type="checkbox"/>
+                    <label class="toggle" for="centerDrawingSwitch">
+                        <span>Center drawing</span>
+                    </label>
+                </td>
+
+        </table>
+
+
+        <br>
 
         <button id="clear_button">Clear</button>
 
@@ -32,15 +54,18 @@
         Classification:
         <div id="number"></div>
         <div id="evaluation">
-            <table id="table">
+            <table class="class-table" id="table">
             </table>
         </div>
     </div>
 </div>
 
-<div id="footer"><hr/>
+<div id="footer">
+    <hr/>
     Digit recognition <br>
-    <img src="assets/gitlab.png" alt="gitlab_logo" style="width: 1em"> <a class="link" href="https://gitlab.com/d-costa/digits"> Gitlab</a>
+    <img alt="gitlab_logo" src="assets/gitlab.png" style="width: 1em"> <a class="link"
+                                                                          href="https://gitlab.com/d-costa/digits">
+    Gitlab</a>
 </div>
 </body>
 
