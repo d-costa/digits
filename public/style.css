@@ -133,3 +133,7 @@ h1 {
 .link {
     color: black;
 }
+
+.center-options-table {
+    margin: 0 auto;
+}

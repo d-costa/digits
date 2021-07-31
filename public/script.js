@@ -168,6 +168,7 @@ function handleResize() {
     if (window.innerHeight > window.innerWidth) {
         // vertical mode
         $('.flex-child:first-child').css({'flex-basis': '100%'});
+        $('#options-table').addClass('center-options-table');
     } else {
         $('.flex-child:first-child').css({'flex-basis': 'auto'});
     }
