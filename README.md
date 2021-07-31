@@ -2,7 +2,8 @@
 
 Digit classification with tensorflow.
 
-Because the examples used for training have the digits centered, this solution has the limitation of only recognizing digits that are centered as well. This fact can be used to understand which areas of the image are more important to classify each digit.
+It is possible to disable the centering functionality to better understand what areas are more relevant to identify
+certain digits.
 
 ## Working Example
 
