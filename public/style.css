@@ -130,6 +130,10 @@ h1 {
     text-align: center;
 }
 
+.footer-class {
+    font-size: 1em;
+}
+
 .link {
     color: black;
 }

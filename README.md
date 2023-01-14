@@ -4,7 +4,8 @@ Digit classification with tensorflow: https://d-costa.github.io/digits/
 
 ## Features
 
-- [x] Optional centering: understand what areas are more relevant to identify digits
+- [x] Optional centering: understand what areas are more relevant to identify digits;
+- [x] Probability for each digit;
 
 ## Neural Net Architecture
 
