@@ -63,4 +63,5 @@ Test accuracy: 98.97%
 
 ## Acknowledgements
 
-Carlos Aguayo : https://github.com/carlos-aguayo/carlos-aguayo.github.io
+- Carlos Aguayo : https://github.com/carlos-aguayo/carlos-aguayo.github.io
+- CNN architecture render: https://netron.app/
